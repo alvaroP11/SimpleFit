@@ -17,7 +17,7 @@ class AddEjercicioAdapter(private val lista: List<Ejercicio>) :
 
     inner class ViewHolder(val binding: ItemEjercicioSeleccionableBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ejercicio: Ejercicio) {
-            binding.nombreEjercicioTV.text = ejercicio.nombre
+            binding.nombreEjercicioEditTV.text = ejercicio.nombre
             Glide.with(binding.root).load(ejercicio.imagen).into(binding.imagenEjercicioSeleccionable)
             binding.itemCB.setOnCheckedChangeListener(null)
             binding.itemCB.isChecked = seleccionados.contains(ejercicio.id)

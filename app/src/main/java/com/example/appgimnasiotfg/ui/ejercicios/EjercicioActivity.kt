@@ -57,7 +57,7 @@ class EjercicioActivity : AppCompatActivity() {
         // Cargar datos del ejercicio
         val ejercicio = intent.getSerializableExtra("ejercicio") as? Ejercicio //Con "?", en caso de lanzar una excepcion, lo evita y devuelve un Ejercicio null
         if (ejercicio != null) {
-            binding.nombreTV.text = ejercicio.nombre
+            binding.nombreEjercicioTV.text = ejercicio.nombre
             binding.descripcionTV.text = ejercicio.descripcion
             Glide.with(this).load(ejercicio.imagen).into(binding.ejercicioImg)
 

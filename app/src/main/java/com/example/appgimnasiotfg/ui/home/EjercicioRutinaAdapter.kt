@@ -28,7 +28,7 @@ class EjercicioRutinaAdapter(
 
         with(holder.binding) {
             if (ejercicio != null) {
-                nombreEjercicioTV.text = ejercicio.nombre
+                nombreEjercicioEditTV.text = ejercicio.nombre
                 descripcionEjercicioTV.text = ejercicio.descripcion
 
                 val tipo = ejercicio.tipo
@@ -39,7 +39,7 @@ class EjercicioRutinaAdapter(
                 }
                 infoEjercicioTV.text = info
             } else {
-                nombreEjercicioTV.text = "Ejercicio no cargado"
+                nombreEjercicioEditTV.text = "Ejercicio no cargado"
                 descripcionEjercicioTV.text = ""
                 infoEjercicioTV.text = ""
             }

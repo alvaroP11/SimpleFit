@@ -26,7 +26,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/nombreEjercicioTV"
+            android:id="@+id/nombreEjercicioEditTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nombreEjercicioTV" />
+            app:layout_constraintTop_toBottomOf="@+id/nombreEjercicioEditTV" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline14"

@@ -34,7 +34,7 @@ class EditarEjercicioRutinaActivity : AppCompatActivity() {
         val tipo = ejercicio?.tipo ?: TipoEjercicio.PESO_VARIABLE
 
         // Mostrar datos básicos
-        binding.nombreEjercicioTV.text = ejercicio?.nombre ?: "Ejercicio"
+        binding.nombreEjercicioEditTV.text = ejercicio?.nombre ?: "Ejercicio"
         binding.descripcionEjercicioTV.text = ejercicio?.descripcion ?: "Descripción"
 
         // Mostrar/ocultar campos según el tipo de ejercicio

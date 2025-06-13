@@ -16,7 +16,7 @@ class EjercicioAdapter(
 ) : RecyclerView.Adapter<EjercicioAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nombreText: TextView = itemView.findViewById(R.id.nombreEjercicioTV)
+        val nombreText: TextView = itemView.findViewById(R.id.nombreEjercicioEditTV)
         val descripcionText: TextView = itemView.findViewById(R.id.descripcionEjercicioTV)
         val imagen: ImageView = itemView.findViewById(R.id.imagenEjercicio)
 
