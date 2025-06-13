@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TopRoundedCard" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">48dp</item>
+        <item name="cornerSizeTopRight">48dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="CenteredBottomNavText" parent="TextAppearance.AppCompat">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

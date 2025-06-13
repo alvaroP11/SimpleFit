@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "450694728247",
+    "project_id": "appgimnasiotfg",
+    "storage_bucket": "appgimnasiotfg.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450694728247:android:b167eddfdd987813cb8db2",
+        "android_client_info": {
+          "package_name": "com.example.appgimnasiotfg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450694728247-o0tr4bvf9nh0f8r3eh138sl930dth9dr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appgimnasiotfg",
+            "certificate_hash": "6975575d94acba02b3f5aa639de2326339db497a"
+          }
+        },
+        {
+          "client_id": "450694728247-05tqq7fqqcocsobqu2jf3uviuormd7od.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVynhimP0xDMAtoEBoOCWXRBjVHPwrxZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450694728247-05tqq7fqqcocsobqu2jf3uviuormd7od.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

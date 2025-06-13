@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Nombre del ejercicio -->
+    <TextView
+        android:id="@+id/nombreEjercicioTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/alatsi"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="Nombre del Ejercicio"
+        android:textColor="@color/text_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenido con scroll -->
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/nombreEjercicioTV"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/contenedorCampos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Descripción -->
+            <TextView
+                android:id="@+id/descripcionEjercicioTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alatsi"
+                android:paddingBottom="24dp"
+                android:text="Descripción del ejercicio"
+                android:textColor="@color/text_color"
+                android:textSize="16sp" />
+
+            <!-- Grupo: Series -->
+            <LinearLayout
+                android:id="@+id/grupoSeries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/seriesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alatsi"
+                    android:text="Series:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/seriesET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/background_recyclerview"
+                    android:fontFamily="@font/alatsi"
+                    android:hint="Introduce número de series"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_color_hint" />
+            </LinearLayout>
+
+            <!-- Grupo: Repeticiones -->
+            <LinearLayout
+                android:id="@+id/grupoRepeticiones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/repeticionesLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alatsi"
+                    android:text="Repeticiones:"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/repeticionesET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/background_recyclerview"
+                    android:fontFamily="@font/alatsi"
+                    android:hint="Introduce número de repeticiones"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_color_hint" />
+            </LinearLayout>
+
+            <!-- Grupo: Peso -->
+            <LinearLayout
+                android:id="@+id/grupoPeso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/pesoLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alatsi"
+                    android:text="Peso (kg):"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/pesoET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/background_recyclerview"
+                    android:fontFamily="@font/alatsi"
+                    android:hint="Introduce peso en kg"
+                    android:inputType="numberDecimal"
+                    android:padding="8dp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_color_hint" />
+            </LinearLayout>
+
+            <!-- Grupo: Duración -->
+            <LinearLayout
+                android:id="@+id/grupoDuracion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/duracionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/alatsi"
+                    android:text="Duración (minutos):"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/duracionET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/background_recyclerview"
+                    android:fontFamily="@font/alatsi"
+                    android:hint="Introduce duración en minutos"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColor="@color/text_color"
+                    android:textColorHint="@color/text_color_hint" />
+            </LinearLayout>
+
+            <!-- Botón Guardar -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/guardarBT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/button"
+                android:fontFamily="@font/alatsi"
+                android:padding="12dp"
+                android:text="Guardar cambios"
+                android:textColor="@color/text_color" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

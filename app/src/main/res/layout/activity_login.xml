@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.login.LoginActivity">
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:fontFamily="@font/alatsi"
+        android:text="@string/title"
+        android:textAllCaps="false"
+        android:textColor="@color/text_color"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="48dp"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:shapeAppearanceOverlay="@style/TopRoundedCard"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_gradient">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.08" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.92" />
+
+            <EditText
+                android:id="@+id/emailEdt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:ems="10"
+                android:fontFamily="@font/alatsi"
+                android:hint="@string/emailEdt"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/text_color_hint"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill" />
+
+            <EditText
+                android:id="@+id/passwordEdt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:ems="10"
+                android:fontFamily="@font/alatsi"
+                android:hint="@string/passwordEdt"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/text_color_hint"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/emailEdt"
+                tools:ignore="Autofill" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerBt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/button"
+                android:fontFamily="@font/alatsi"
+                android:onClick="signUp"
+                android:text="@string/registerBt"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/loginBt"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/passwordEdt" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginBt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/button"
+                android:fontFamily="@font/alatsi"
+                android:onClick="login"
+                android:text="@string/loginBt"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/registerBt"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toEndOf="@+id/registerBt" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/googleLoginBt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/button"
+                android:drawableStart="@drawable/googleg_standard_color_18"
+                android:fontFamily="@font/alatsi"
+                android:onClick="googleLogin"
+                android:text="@string/googleLoginBt"
+                android:textColor="@color/text_color"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/registerBt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
