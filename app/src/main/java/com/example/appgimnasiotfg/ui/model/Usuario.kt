@@ -5,5 +5,5 @@ import java.io.Serializable
 data class Usuario(
     var nombre: String = "",
     var altura: Int = 0,
-    var peso: Float = 0f
+    var peso: Double = 0.0
 ) : Serializable

@@ -1,6 +1,7 @@
 package com.example.appgimnasiotfg.ui.home
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appgimnasiotfg.databinding.ItemEjercicioRutinaBinding
@@ -11,7 +12,8 @@ class EjercicioRutinaAdapter(
     private var listaEjercicios: MutableList<EjercicioRutina>,
     private val onItemClick: (EjercicioRutina) -> Unit,
     private val onEditarClick: (EjercicioRutina) -> Unit,
-    private val onEliminarClick: (EjercicioRutina) -> Unit
+    private val onEliminarClick: (EjercicioRutina) -> Unit,
+    private val isEditable: Boolean
 ) : RecyclerView.Adapter<EjercicioRutinaAdapter.EjercicioViewHolder>() {
 
     inner class EjercicioViewHolder(val binding: ItemEjercicioRutinaBinding) :
@@ -26,6 +28,11 @@ class EjercicioRutinaAdapter(
         val ejercicioRutina = listaEjercicios[position]
         val ejercicio = ejercicioRutina.ejercicio
 
+        if (!isEditable) {
+            holder.binding.btnEditar.visibility = View.GONE
+            holder.binding.btnEliminar.visibility = View.GONE
+        }
+
         with(holder.binding) {
             if (ejercicio != null) {
                 nombreEjercicioEditTV.text = ejercicio.nombre
@@ -33,8 +40,13 @@ class EjercicioRutinaAdapter(
 
                 val tipo = ejercicio.tipo
                 val info = when (tipo) {
-                    TipoEjercicio.PESO_VARIABLE -> "${ejercicioRutina.series} x ${ejercicioRutina.repeticiones}, Peso: ${ejercicioRutina.peso}kg"
-                    TipoEjercicio.PESO_PROPIO -> "${ejercicioRutina.series} x ${ejercicioRutina.repeticiones}"
+                    TipoEjercicio.PESO_VARIABLE -> {
+                        if (isEditable) {
+                            "${ejercicioRutina.series} x ${ejercicioRutina.repeticiones}, Peso: ${ejercicioRutina.peso}kg"
+                        } else {
+                            "${ejercicioRutina.series} x ${ejercicioRutina.repeticiones}"
+                        }
+                    }TipoEjercicio.PESO_PROPIO -> "${ejercicioRutina.series} x ${ejercicioRutina.repeticiones}"
                     TipoEjercicio.TIEMPO -> "${ejercicioRutina.tiempo} minutos"
                 }
                 infoEjercicioTV.text = info

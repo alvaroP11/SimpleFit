@@ -1,5 +1,6 @@
 package com.example.appgimnasiotfg.ui.perfil
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import androidx.fragment.app.viewModels
@@ -14,11 +15,10 @@ import com.example.appgimnasiotfg.ui.login.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.appgimnasiotfg.ui.model.Usuario
-import java.text.NumberFormat
-import java.text.ParseException
 import java.util.Locale
 
 class PerfilFragment : Fragment() {
+    private var usuarioActual: Usuario? = null
 
     companion object {
         fun newInstance() = PerfilFragment()
@@ -52,6 +52,21 @@ class PerfilFragment : Fragment() {
 
         obtenerDatosUsuario()
         binding.correoTV.setText(auth.currentUser?.email.toString())
+
+        binding.editarUsuarioBT.setOnClickListener {
+            val intent = Intent(requireContext(), EditarPerfilActivity::class.java)
+            intent.putExtra("usuario",usuarioActual)
+            startActivity(intent)
+        }
+
+        binding.imcUsuarioObtenidoTV.setOnClickListener {
+            mostrarInfoIMC(calcularIMC(usuarioActual!!.altura, usuarioActual!!.peso))
+        }
+
+        binding.indicadorIMC.setOnClickListener {
+            mostrarInfoIMC(calcularIMC(usuarioActual!!.altura, usuarioActual!!.peso))
+        }
+
     }
 
     fun logOut() {
@@ -61,7 +76,7 @@ class PerfilFragment : Fragment() {
         startActivity(intent)
     }
 
-    fun obtenerDatosUsuario(){
+    fun obtenerDatosUsuario() {
         if (userUID != null) {
             FirebaseFirestore.getInstance()
                 .collection("usuarios")
@@ -69,39 +84,43 @@ class PerfilFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { doc ->
                     doc.toObject(Usuario::class.java)?.let { usuario ->
+                        usuarioActual = usuario
+
                         binding.nombreUsuarioObtenidoTV.text = usuario.nombre
                         binding.alturaUsuarioObtenidaTV.text = formatearAltura(usuario.altura)
-                        binding.pesoUsuarioObtenidoTV.text = String.format(Locale.getDefault(), "%.1f kg", usuario.peso)
 
+                        // Formateo de peso con coma o punto según locale
+                        val pesoFormateado = String.format(Locale.getDefault(), "%.1f", usuario.peso)
+                        binding.pesoUsuarioObtenidoTV.text = "$pesoFormateado kg"
+
+                        // Calcular IMC
                         val imc = calcularIMC(usuario.altura, usuario.peso)
                         binding.imcUsuarioObtenidoTV.text = String.format(Locale.getDefault(), "%.1f", imc)
                         colorearIMC(binding.imcUsuarioObtenidoTV, imc)
-
-                        binding.editarUsuarioBT.setOnClickListener {
-                            val intent = Intent(requireContext(), EditarPerfilActivity::class.java)
-                            intent.putExtra("usuario",usuario)
-                            startActivity(intent)
-                        }
                     }
                 }
         }
     }
 
-    fun calcularIMC(alturaCm: Int, pesoKg: Float): Float {
+
+    fun calcularIMC(alturaCm: Int, pesoKg: Double): Double {
         val alturaM = alturaCm / 100f
         return pesoKg / (alturaM * alturaM)
     }
 
 
-    fun colorearIMC(view: TextView, imc: Float) {
+    fun colorearIMC(imcView: TextView, imc: Double) {
         val color = when {
             imc < 18.5 -> Color.parseColor("#2196F3") // Azul - bajo peso
             imc < 25 -> Color.parseColor("#4CAF50") // Verde - normal
             imc < 30 -> Color.parseColor("#FFC107") // Amarillo - sobrepeso
             else -> Color.parseColor("#F44336") // Rojo - obesidad
         }
-        view.setBackgroundColor(color)
+
+        val indicador = binding.indicadorIMC.background
+        indicador.setTint(color)
     }
+
 
     fun formatearAltura(alturaCm: Int): String {
         return if (alturaCm >= 100) {
@@ -112,4 +131,23 @@ class PerfilFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        obtenerDatosUsuario()
+    }
+
+    fun mostrarInfoIMC(imc: Double) {
+        val (categoria, mensaje) = when {
+            imc < 18.5 -> "Bajo peso" to "Tu IMC indica que estás por debajo del peso recomendado."
+            imc < 25 -> "Peso normal" to "Tu IMC está dentro del rango saludable."
+            imc < 30 -> "Sobrepeso" to "Tu IMC indica un peso superior al recomendado."
+            else -> "Obesidad" to "Tu IMC indica obesidad. Considera consultar con un especialista."
+        }
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Clasificación IMC: $categoria")
+            .setMessage(mensaje)
+            .setPositiveButton("OK", null)
+            .show()
+    }
 }

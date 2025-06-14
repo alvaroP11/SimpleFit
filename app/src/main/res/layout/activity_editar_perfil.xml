@@ -105,7 +105,7 @@
             android:padding="8dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hint"
-            android:digits="0123456789,"/>
+            android:digits="0123456789.,"/>
 
     </LinearLayout>
 

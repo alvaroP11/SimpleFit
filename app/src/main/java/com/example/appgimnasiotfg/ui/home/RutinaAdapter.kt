@@ -12,7 +12,8 @@ import com.google.firebase.ktx.Firebase
 class RutinaAdapter(
     private var lista: MutableList<Rutina>,
     private val onItemClick: (Rutina) -> Unit,
-    private val onLongClick: (Rutina) -> Unit
+    private val onLongClick: (Rutina) -> Unit,
+    private val editable: Boolean = true
 ) : RecyclerView.Adapter<RutinaAdapter.RutinaViewHolder>() {
 
     inner class RutinaViewHolder(val binding: ItemRutinaBinding) :
@@ -31,9 +32,11 @@ class RutinaAdapter(
             onItemClick(rutina)
         }
 
-        holder.itemView.setOnLongClickListener {
-            onLongClick(rutina)
-            true
+        if (editable) {
+            holder.itemView.setOnLongClickListener {
+                onLongClick(rutina)
+                true
+            }
         }
     }
 

@@ -119,7 +119,7 @@ class AddEjerciciosActivity : AppCompatActivity() {
                 docRef.set(mapOf("ejercicios" to mapFinal))
                     .addOnSuccessListener {
                         Toast.makeText(this, "Ejercicios añadidos correctamente", Toast.LENGTH_SHORT).show()
-                        setResult(RESULT_OK)  // <-- Aquí notificamos resultado OK
+                        setResult(RESULT_OK)
                         finish()
                     }
                     .addOnFailureListener { e ->

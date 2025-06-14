@@ -31,7 +31,6 @@ class EditarPerfilActivity : AppCompatActivity() {
             binding.pesoUsuarioEdt.setText(it.peso.toString())
         }
 
-
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -46,7 +45,8 @@ class EditarPerfilActivity : AppCompatActivity() {
     private fun guardarCambiosUsuario() {
         val nombre = binding.nombreUsuarioEdt.text.toString()
         val altura = binding.alturaUsuarioEdt.text.toString().toIntOrNull() ?: 0
-        val peso = parseFloatSafe(binding.pesoUsuarioEdt.text.toString())
+        val pesoTexto = binding.pesoUsuarioEdt.text.toString().replace(',','.')
+        val peso = pesoTexto.toDoubleOrNull() ?: 0.0
 
         if (userUID != null) {
             val usuario = Usuario(nombre, altura, peso)
@@ -60,15 +60,4 @@ class EditarPerfilActivity : AppCompatActivity() {
                 }
         }
     }
-
-    fun parseFloatSafe(input: String): Float {
-        return try {
-            val format = NumberFormat.getInstance(Locale.getDefault())
-            val number = format.parse(input)
-            number?.toFloat() ?: 0f
-        } catch (e: ParseException) {
-            0f
-        }
-    }
-
 }

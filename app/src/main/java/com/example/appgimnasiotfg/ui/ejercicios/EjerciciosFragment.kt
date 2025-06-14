@@ -43,7 +43,6 @@ class EjerciciosFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // TODO: Use the ViewModel
     }
 
@@ -96,6 +95,8 @@ class EjerciciosFragment : Fragment() {
         db.collection("ejercicios")
             .get()
             .addOnSuccessListener { result ->
+                if (!isAdded) return@addOnSuccessListener // <-- Evitar crash si fragmento no está adjunto
+
                 listaEjercicios.clear()
                 for (doc in result) {
                     val ejercicio = doc.toObject(Ejercicio::class.java)
@@ -105,6 +106,7 @@ class EjerciciosFragment : Fragment() {
                 filtrarEjerciciosPorMusculo("")  // Mostrar todo al inicio
             }
             .addOnFailureListener { e ->
+                if (!isAdded) return@addOnFailureListener
                 Log.e("Firestore", "Error al obtener ejercicios", e)
                 Toast.makeText(requireContext(), "Error al cargar datos: ${e.message}", Toast.LENGTH_LONG).show()
             }
@@ -112,50 +114,44 @@ class EjerciciosFragment : Fragment() {
 
     fun filtrarEjerciciosPorMusculo(musculoId: String) {
         if (musculoId.isEmpty()) {
-            // Si el ID está vacio, lista completa
             listaEjerciciosFiltrados = listaEjercicios.toMutableList()
         } else {
-            //Si el ID contiene algo, se recorre cada objeto, comprobando que contenga el ID del musculo que queremos y añadiendolo a la lista
             listaEjerciciosFiltrados = listaEjercicios.filter {
                 it.musculoIds.contains(musculoId)
             }.toMutableList()
         }
-        // Se añade la nueva lista al adapter
         adapter.setEjercicios(listaEjerciciosFiltrados)
     }
 
     fun cargarMusculos() {
         val db = Firebase.firestore
-        // Aseguro la desactivacion del Spinner mientras se cargan los musculos
         spinner.isEnabled = false
         db.collection("musculos")
             .get()
             .addOnSuccessListener { result ->
+                if (!isAdded) return@addOnSuccessListener
+
                 musculos.clear()
                 musculoIds.clear()
-                //Añado una primera opcion general, con ID en blanco para que no sirva para filtrar
                 musculos.add(Musculo("", "Todos"))
                 musculoIds.add("")
 
                 for (doc in result) {
-                    // Obtengo todos los musculos y guardo sus IDs y nombres
                     val musculo = doc.toObject(Musculo::class.java)
                     musculo.id = doc.id
-                    // Dos listas, en el mismo orden para tener toda la información, pero no usar gran flujo de datos si solo quiero usar un ID y no el item entero
                     musculos.add(musculo)
                     musculoIds.add(doc.id)
                 }
 
-                // Obtengo una lista solo con los nombres para asignarla al Spinner
                 val nombres = musculos.map { it.nombre }
                 spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-                // Establezco el adapter y habilito el spinner de nuevo
                 spinner.adapter = spinnerAdapter
                 spinner.isEnabled = true
             }
             .addOnFailureListener { e ->
+                if (!isAdded) return@addOnFailureListener
                 Toast.makeText(requireContext(), "Error cargando músculos: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }

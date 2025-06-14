@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:minWidth="100dp"
+        android:minHeight="100dp"
         android:orientation="vertical">
 
         <TextView
@@ -37,7 +38,4 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Agrega aquí más vistas si quieres mostrar más info -->
-
 </com.google.android.material.card.MaterialCardView>

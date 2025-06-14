@@ -187,4 +187,14 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintTop_toBottomOf="@+id/imcUsuarioTV" />
 
+    <View
+        android:id="@+id/indicadorIMC"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/circle_indicator"
+        app:layout_constraintEnd_toStartOf="@+id/imcUsuarioObtenidoTV"
+        app:layout_constraintTop_toBottomOf="@+id/imcUsuarioTV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

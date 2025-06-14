@@ -2,6 +2,7 @@ package com.example.appgimnasiotfg.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -30,6 +31,7 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
 
     private var diaSeleccionado: Int = 0
     private lateinit var rutina: Rutina
+    private var isEditable: Boolean = false
     private lateinit var adapter: EjercicioRutinaAdapter
 
     private lateinit var addEjerciciosLauncher: ActivityResultLauncher<Intent>
@@ -41,9 +43,11 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
         setContentView(binding.root)
         enableEdgeToEdge()
 
+        Log.d("RutinaActivity", "onCreate INICIADO")
         // Recibir rutina del intent
         rutina = intent.getSerializableExtra("rutina") as? Rutina
             ?: throw IllegalStateException("No se recibió la rutina")
+        isEditable = intent.getBooleanExtra("editable", true)
 
         // Setup RecyclerView y Adapter
         adapter = EjercicioRutinaAdapter(
@@ -63,8 +67,13 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             },
             onEliminarClick = { ejercicioRutina ->
                 eliminarEjercicioDeFirebase(ejercicioRutina)
-            }
+            },
+            isEditable = isEditable
         )
+        if (!isEditable) {
+            binding.editarNombreBT.visibility = View.GONE
+            binding.addEjerciciosBT.visibility = View.GONE
+        }
 
         binding.editarNombreBT.setOnClickListener {
             val dialog = RutinaFragmentDialog.newInstance(
@@ -123,7 +132,10 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
 
     private fun cargarEjerciciosDelDia(dia: Int) {
         val db = Firebase.firestore
-        val referenciaDia = db.collection("rutinas")
+        val coleccionACargar = if (isEditable) "rutinas" else "rutinas_prehechas"
+
+        Log.d("RutinaActivity", rutina.id)
+        val referenciaDia = db.collection(coleccionACargar)
             .document(rutina.id)
             .collection("diasRutina")
             .document(dia.toString())
@@ -132,10 +144,12 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             .addOnSuccessListener { doc ->
                 if (!doc.exists()) {
                     adapter.updateData(emptyList())
+                    Log.d("RutinaActivity", "Doc no existe")
                     return@addOnSuccessListener
                 }
 
                 val ejerciciosRutinaList = doc.get("ejercicios") as? List<Map<String, Any>> ?: emptyList()
+                Log.d("RutinaActivity", "ejercicios raw: ${doc.get("ejercicios")}")
                 val listaFinal = mutableListOf<EjercicioRutina>()
                 val tareas = mutableListOf<Task<DocumentSnapshot>>()
 
@@ -182,6 +196,7 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
                 Toast.makeText(this, "Error al obtener ejercicios del día", Toast.LENGTH_SHORT).show()
             }
     }
+
     private fun eliminarEjercicioDeFirebase(ejercicioRutina: EjercicioRutina) {
         val db = Firebase.firestore
         val refDia = db.collection("rutinas")
