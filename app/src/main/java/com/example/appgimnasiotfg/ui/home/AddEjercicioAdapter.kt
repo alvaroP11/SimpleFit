@@ -4,30 +4,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.appgimnasiotfg.databinding.ItemEjercicioBinding
 import com.example.appgimnasiotfg.databinding.ItemEjercicioSeleccionableBinding
 import com.example.appgimnasiotfg.ui.model.Ejercicio
 
-class AddEjercicioAdapter(private val lista: List<Ejercicio>) :
-    RecyclerView.Adapter<AddEjercicioAdapter.ViewHolder>() {
+class AddEjercicioAdapter(
+    private var listaEjercicios: List<Ejercicio>
+) : RecyclerView.Adapter<AddEjercicioAdapter.ViewHolder>() {
 
-    private val seleccionados = mutableSetOf<String>() // ids de ejercicios seleccionados
+    private val selectedIds = mutableSetOf<String>()
 
-    fun obtenerSeleccionados(): List<Ejercicio> =
-        lista.filter { seleccionados.contains(it.id) }
+    fun actualizarLista(nuevaLista: List<Ejercicio>) {
+        listaEjercicios = nuevaLista
+        notifyDataSetChanged()
+    }
 
-    inner class ViewHolder(val binding: ItemEjercicioSeleccionableBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun isSelected(id: String): Boolean = selectedIds.contains(id)
+
+    fun getSelectedIds(): Set<String> = selectedIds.toSet()
+
+    inner class ViewHolder(private val binding: ItemEjercicioSeleccionableBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(ejercicio: Ejercicio) {
             binding.nombreEjercicioEditTV.text = ejercicio.nombre
             Glide.with(binding.root).load(ejercicio.imagen).into(binding.imagenEjercicioSeleccionable)
+            // Evitar llamada repetida del listener al reciclar
             binding.itemCB.setOnCheckedChangeListener(null)
-            binding.itemCB.isChecked = seleccionados.contains(ejercicio.id)
-
+            binding.itemCB.isChecked = selectedIds.contains(ejercicio.id)
             binding.itemCB.setOnCheckedChangeListener { _, isChecked ->
-                if (isChecked) {
-                    seleccionados.add(ejercicio.id)
-                } else {
-                    seleccionados.remove(ejercicio.id)
-                }
+                if (isChecked) selectedIds.add(ejercicio.id) else selectedIds.remove(ejercicio.id)
             }
         }
     }
@@ -37,9 +41,9 @@ class AddEjercicioAdapter(private val lista: List<Ejercicio>) :
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = lista.size
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(lista[position])
+        holder.bind(listaEjercicios[position])
     }
+
+    override fun getItemCount(): Int = listaEjercicios.size
 }
