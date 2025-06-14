@@ -86,4 +86,15 @@
         android:src="@android:drawable/ic_menu_edit"
         app:layout_constraintEnd_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
+
+    <ImageButton
+        android:id="@+id/volverAlHomeBT"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

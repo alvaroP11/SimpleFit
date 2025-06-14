@@ -3,6 +3,7 @@ package com.example.appgimnasiotfg.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
@@ -14,50 +15,33 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appgimnasiotfg.R
 import com.example.appgimnasiotfg.databinding.ActivityLoginBinding
+import com.example.appgimnasiotfg.databinding.ActivityRegisterBinding
 import com.example.appgimnasiotfg.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding      // VINCULACION DE VISTAS, SIMPLIFICA EL ACCESO A LOS ELEMENTOS DEL LAYOUT
-    private lateinit var loginManager: GoogleLoginManager   // CLASE AUXILIAR QUE ENCAPSULA EL CODIGO RELACIONADO CON EL LOGIN DE GOOGLE
-    private val auth = FirebaseAuth.getInstance()           // SE SINCRONIZA EN TODOS LOS ACTIVITIES
+class RegisterActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRegisterBinding
+    private val auth = FirebaseAuth.getInstance()
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        // --- INICIALIZACIÓN DEL LOGIN EN EL METODO onCreate, DE LO CONTRARIO NO FUNCIONA --- //
-        loginManager = GoogleLoginManager(
-            activity = this,
-            activityResultCaller = this,
-            auth = auth,
-            // ID en un string, para que no haya visibilidad directa al manipular este fichero
-            webClientId = getString(R.string.web_client_id),
-            onSuccess = { email ->
-                Toast.makeText(this, "Bienvenido $email", Toast.LENGTH_SHORT).show()
-                // SI EL LOGIN ES EXITOSO, SE REALIZA EL INTENT
-                loginSuccess()
-            },
-            onError = { error ->
-                Toast.makeText(this, "Error: $error", Toast.LENGTH_LONG).show()
-            }
-        )
-        // --- //
-
-        binding.alRegistroTV.setOnClickListener{
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+        binding.volverAlLoginBT.setOnClickListener{
+            finish() //Volver al activity anterior cancelando el Intent
         }
 
-        // Comprobacion de que haya ya una sesión valida, para omitir el proceso de Login y pasar directamente a la aplicación
-        if (auth.currentUser != null) {
-            loginSuccess()
+        binding.registerBt.setOnClickListener{
+            signUp()
         }
 
-        configurarTogglePassword(binding.passwordEdt)
+        configurarTogglePassword(binding.passwordRegisterEdt)
+        configurarTogglePassword(binding.passwordConfirmEdt)
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,34 +50,45 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun login(view: View) {
-        val email = binding.emailEdt.text.toString().trim()
-        val password = binding.passwordEdt.text.toString().trim()
+    fun signUp() {
+        val email = binding.emailRegisterEdt.text.toString().trim()
+        val password = binding.passwordRegisterEdt.text.toString().trim()
+        val confirmPassword = binding.passwordConfirmEdt.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty()){
-            Toast.makeText(this,"Hay algun campo vacio", Toast.LENGTH_SHORT).show()
-        } else {
-            auth.signInWithEmailAndPassword(email,password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        loginSuccess()
+        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            Toast.makeText(this, "Hay algún campo vacío", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (password != confirmPassword) {
+            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Bienvenido: ${FirebaseAuth.getInstance().currentUser?.email}", Toast.LENGTH_SHORT).show()
+                    registerSuccess()
+                } else {
+                    val exception = task.exception
+                    if (exception is FirebaseAuthUserCollisionException) {
+                        Toast.makeText(
+                            this,
+                            "Correo en uso. Si lo registraste con Google, inicia sesión con Google.",
+                            Toast.LENGTH_LONG
+                        ).show()
                     } else {
-                        Toast.makeText(this,"La cuenta introducida no existe.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Error: ${exception?.localizedMessage}", Toast.LENGTH_LONG).show()
                     }
                 }
-        }
+            }
     }
 
-    fun googleLogin(view: View) {
-        loginManager.startLogin()
-    }
-
-    fun loginSuccess() {
+    fun registerSuccess(){
         val intent = Intent(this, MainActivity::class.java)
-        // Se borra el anterior Activity del historial, para evitar acceder al Activity anterior en un estado incorrecto
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish()
     }
 
     private fun configurarTogglePassword(editText: EditText) {

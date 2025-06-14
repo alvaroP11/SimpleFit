@@ -3,11 +3,14 @@
 
     <item
         android:id="@+id/homeNav"
+        android:icon="@drawable/ic_home"
         android:title="Principal" />
     <item
         android:id="@+id/ejerciciosNav"
+        android:icon="@drawable/ic_dumbbell"
         android:title="Ejercicios" />
     <item
         android:id="@+id/perfilNav"
+        android:icon="@drawable/ic_profile"
         android:title="Perfil" />
 </menu>

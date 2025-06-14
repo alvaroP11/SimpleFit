@@ -40,6 +40,10 @@ class EditarPerfilActivity : AppCompatActivity() {
         binding.guardarCambiosUsuarioBT.setOnClickListener {
             guardarCambiosUsuario()
         }
+
+        binding.volverAlPerfilBT.setOnClickListener{
+            finish()
+        }
     }
 
     private fun guardarCambiosUsuario() {

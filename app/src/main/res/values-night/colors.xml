@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#353535</color>
+    <color name="background">#373737</color>
     <color name="background_recyclerview">#272727</color>
     <color name="text_color">#EBE7E7</color>
+    <color name="text_link_color">#587DEF</color>
     <color name="text_color_hint">#9E9E9E</color>
     <color name="button">#2052A9</color>
 </resources>

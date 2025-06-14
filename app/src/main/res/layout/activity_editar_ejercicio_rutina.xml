@@ -10,7 +10,7 @@
     <!-- Nombre del ejercicio -->
     <TextView
         android:id="@+id/nombreEjercicioEditTV"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
@@ -21,7 +21,6 @@
         android:text="Nombre del Ejercicio"
         android:textColor="@color/text_color"
         android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -196,4 +195,15 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/volverALaRutina2BT"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 </androidx.constraintlayout.widget.ConstraintLayout>

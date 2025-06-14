@@ -64,6 +64,10 @@ class EjercicioActivity : AppCompatActivity() {
             cargarMusculosPorIds(ejercicio.musculoIds)
             cargarMaquinasPorIds(ejercicio.maquinaIds)
         }
+
+        binding.volverALaRutinaBT.setOnClickListener{
+            finish()
+        }
     }
 
     private fun cargarMusculosPorIds(musculoIds: List<String>) {

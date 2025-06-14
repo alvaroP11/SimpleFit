@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.perfil.EditarPerfilActivity">
 
     <TextView
@@ -56,7 +57,8 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/text_color"
-            android:textColorHint="@color/text_color_hint" />
+            android:textColorHint="@color/text_color_hint"
+            android:maxLength="20" />
 
         <TextView
             android:id="@+id/alturaUsuarioEditTV"
@@ -80,7 +82,8 @@
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/text_color"
-            android:textColorHint="@color/text_color_hint" />
+            android:textColorHint="@color/text_color_hint"
+            android:maxLength="3"/>
 
         <TextView
             android:id="@+id/pesoUsuarioEditTV"
@@ -98,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/background_recyclerview"
+            android:digits="0123456789.,"
             android:fontFamily="@font/alatsi"
             android:hint="Introduce tu peso en kg"
             android:inputType="numberDecimal"
@@ -105,7 +109,7 @@
             android:padding="8dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hint"
-            android:digits="0123456789.,"/>
+            android:maxLength="4" />
 
     </LinearLayout>
 
@@ -124,4 +128,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/volverAlPerfilBT"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 </androidx.constraintlayout.widget.ConstraintLayout>

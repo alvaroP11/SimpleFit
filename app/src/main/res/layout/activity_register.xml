@@ -6,15 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.login.LoginActivity">
+    tools:context=".ui.login.RegisterActivity">
 
     <TextView
-        android:id="@+id/tvLogin"
+        android:id="@+id/tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:fontFamily="@font/alatsi"
-        android:text="@string/title"
+        android:text="Registrarse"
         android:textAllCaps="false"
         android:textColor="@color/text_color"
         android:textSize="34sp"
@@ -66,7 +66,7 @@
                 app:layout_constraintGuide_percent="0.92" />
 
             <EditText
-                android:id="@+id/emailEdt"
+                android:id="@+id/emailRegisterEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
@@ -83,7 +83,7 @@
                 tools:ignore="Autofill" />
 
             <EditText
-                android:id="@+id/passwordEdt"
+                android:id="@+id/passwordRegisterEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -98,52 +98,55 @@
                 android:textColorHint="@color/text_color_hint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/emailEdt"
-                tools:ignore="Autofill" />
+                app:layout_constraintTop_toBottomOf="@+id/emailRegisterEdt"
+                tools:ignore="Autofill"
+                android:maxLength="20" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/loginBt"
+            <EditText
+                android:id="@+id/passwordConfirmEdt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:drawableEnd="@drawable/ic_eye_open"
+                android:drawableTint="@color/text_color_hint"
+                android:ems="10"
+                android:fontFamily="@font/alatsi"
+                android:hint="Confirmar contraseña"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:textColor="@color/text_color"
+                android:textColorHint="@color/text_color_hint"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
+                app:layout_constraintTop_toBottomOf="@+id/passwordRegisterEdt"
+                tools:ignore="Autofill"
+                android:maxLength="20" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerBt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:backgroundTint="@color/button"
                 android:fontFamily="@font/alatsi"
-                android:onClick="login"
-                android:text="@string/loginBt"
+                android:text="@string/registerBt"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/passwordEdt" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/googleLoginBt"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/button"
-                android:drawableStart="@drawable/googleg_standard_color_18"
-                android:fontFamily="@font/alatsi"
-                android:onClick="googleLogin"
-                android:text="@string/googleLoginBt"
-                android:textColor="@color/text_color"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/loginBt" />
-
-            <TextView
-                android:id="@+id/alRegistroTV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/alatsi"
-                android:text="¿No tienes cuenta aun? Registrate aquí"
-                android:textColor="@color/text_link_color"
-                app:layout_constraintEnd_toStartOf="@+id/guideline5"
-                app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/googleLoginBt" />
+                app:layout_constraintTop_toBottomOf="@+id/passwordConfirmEdt" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <ImageButton
+        android:id="@+id/volverAlLoginBT"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="?attr/actionModeCloseDrawable" />
 </androidx.constraintlayout.widget.ConstraintLayout>

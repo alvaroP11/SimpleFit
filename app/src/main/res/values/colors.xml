@@ -3,6 +3,7 @@
     <color name="background">#FFFFFF</color>
     <color name="background_recyclerview">#DFDFDF</color>
     <color name="text_color">#343434</color>
+    <color name="text_link_color">#235D96</color>
     <color name="text_color_hint">#616161</color>
     <color name="button">#4ABEFB</color>
 </resources>
