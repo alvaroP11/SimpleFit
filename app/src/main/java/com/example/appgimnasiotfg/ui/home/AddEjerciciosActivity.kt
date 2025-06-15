@@ -26,8 +26,7 @@ class AddEjerciciosActivity : AppCompatActivity() {
     private val diasSemana = listOf("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
     private lateinit var adapter: AddEjercicioAdapter
-    private val listaEjerciciosGlobal = mutableListOf<Ejercicio>()
-    private var listaEjerciciosFiltrados = mutableListOf<Ejercicio>()
+    private val listaEjercicios = mutableListOf<Ejercicio>()
 
     private lateinit var spinner: Spinner
     private lateinit var spinnerAdapter: ArrayAdapter<String>
@@ -46,8 +45,10 @@ class AddEjerciciosActivity : AppCompatActivity() {
 
         binding.addRutinaTV.text = "Añadir ejercicios al ${diasSemana[diaSeleccionado]}"
 
-        // Configurar RecyclerView vacío por ahora
+        // RecyclerView y adapter
+        adapter = AddEjercicioAdapter(listaEjercicios)
         binding.recyclerViewEjercicios.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewEjercicios.adapter = adapter
 
         // Spinner
         spinner = binding.addEjerciciosSP
@@ -55,11 +56,11 @@ class AddEjerciciosActivity : AppCompatActivity() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedMusculoId = musculoIds.getOrNull(position) ?: ""
-                filtrarEjerciciosPorMusculo(selectedMusculoId)
+                adapter.filtrarPorMusculo(selectedMusculoId)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                filtrarEjerciciosPorMusculo("")
+                adapter.filtrarPorMusculo("")
             }
         }
 
@@ -68,11 +69,9 @@ class AddEjerciciosActivity : AppCompatActivity() {
 
         // Botón guardar ejercicios
         binding.addEjerciciosRutinaBT.setOnClickListener {
-            // Obtener seleccionados globalmente de listaEjerciciosGlobal consultando el adapter
-            val seleccionados = listaEjerciciosGlobal.filter { adapter.isSelected(it.id) }
-
+            val seleccionados = adapter.obtenerSeleccionados()
             if (seleccionados.isEmpty()) {
-                Toast.makeText(this, "Ejercicios añadidos correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Selecciona al menos un ejercicio", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -93,7 +92,7 @@ class AddEjerciciosActivity : AppCompatActivity() {
             finish()
         }
 
-        // Inset de sistema
+        // Insets sistema
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -109,22 +108,19 @@ class AddEjerciciosActivity : AppCompatActivity() {
                     doc.toObject(Ejercicio::class.java).apply { id = doc.id }
                 }
 
-                listaEjerciciosGlobal.clear()
-                listaEjerciciosGlobal.addAll(ejercicios)
+                listaEjercicios.clear()
+                listaEjercicios.addAll(ejercicios)
 
-                // Crear adapter con los datos ya cargados
-                adapter = AddEjercicioAdapter(listaEjerciciosGlobal)
-                binding.recyclerViewEjercicios.layoutManager = LinearLayoutManager(this)
+                adapter = AddEjercicioAdapter(listaEjercicios)
                 binding.recyclerViewEjercicios.adapter = adapter
 
-                // Solo ahora filtramos, ya que adapter está inicializado
-                filtrarEjerciciosPorMusculo("")
+                // Mostrar todos al principio
+                adapter.filtrarPorMusculo("")
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar ejercicios", Toast.LENGTH_SHORT).show()
             }
     }
-
 
     private fun subirEjerciciosAFirebase(ejerciciosNuevos: List<EjercicioRutina>) {
         val db = Firebase.firestore
@@ -174,50 +170,31 @@ class AddEjerciciosActivity : AppCompatActivity() {
     }
 
     private fun finishWithError(mensaje: String): Nothing {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
         finish()
-        throw IllegalStateException(mensaje)
+        throw RuntimeException(mensaje)
     }
 
     private fun cargarMusculos() {
-        val db = Firebase.firestore
-        spinner.isEnabled = false
-
-        db.collection("musculos").get()
+        Firebase.firestore.collection("musculos")
+            .get()
             .addOnSuccessListener { result ->
                 musculos.clear()
                 musculoIds.clear()
-
-                musculos.add(Musculo("", "Todos"))
+                musculos.add(Musculo(id = "", nombre = "Todos", imagen = ""))
                 musculoIds.add("")
-
                 for (doc in result) {
-                    val musculo = doc.toObject(Musculo::class.java)
-                    musculo.id = doc.id
-                    musculos.add(musculo)
-                    musculoIds.add(doc.id)
+                    val m = doc.toObject(Musculo::class.java).apply { id = doc.id }
+                    musculos.add(m)
+                    musculoIds.add(m.id)
                 }
-
                 val nombres = musculos.map { it.nombre }
                 spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, nombres)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
                 spinner.adapter = spinnerAdapter
-                spinner.isEnabled = true
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar músculos", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun filtrarEjerciciosPorMusculo(musculoId: String) {
-        listaEjerciciosFiltrados = if (musculoId.isEmpty()) {
-            listaEjerciciosGlobal.toMutableList()
-        } else {
-            listaEjerciciosGlobal.filter {
-                it.musculoIds.contains(musculoId)
-            }.toMutableList()
-        }
-        adapter.actualizarLista(listaEjerciciosFiltrados)
     }
 }
