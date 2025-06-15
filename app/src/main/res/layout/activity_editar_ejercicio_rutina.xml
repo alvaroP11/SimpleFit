@@ -23,7 +23,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <!-- Contenido con scroll -->
     <ScrollView
@@ -51,7 +52,8 @@
                 android:paddingBottom="24dp"
                 android:text="Descripción del ejercicio"
                 android:textColor="@color/text_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="HardcodedText" />
 
             <!-- Grupo: Series -->
             <LinearLayout
@@ -66,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/alatsi"
-                    android:text="Series:"
+                    android:text="@string/seriesLabel"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -77,12 +79,14 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/background_recyclerview"
                     android:fontFamily="@font/alatsi"
-                    android:hint="Introduce número de series"
+                    android:hint="@string/seriesNumberHint"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:minHeight="48dp"
                     android:padding="8dp"
                     android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint" />
+                    android:textColorHint="@color/text_color_hint"
+                    tools:ignore="VisualLintTextFieldSize" />
             </LinearLayout>
 
             <!-- Grupo: Repeticiones -->
@@ -90,6 +94,7 @@
                 android:id="@+id/grupoRepeticiones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:importantForAutofill="no"
                 android:orientation="vertical">
 
                 <TextView
@@ -98,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/alatsi"
-                    android:text="Repeticiones:"
+                    android:text="@string/repsLabel"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -109,12 +114,13 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/background_recyclerview"
                     android:fontFamily="@font/alatsi"
-                    android:hint="Introduce número de repeticiones"
+                    android:hint="@string/repsNumberHint"
                     android:inputType="number"
                     android:minHeight="48dp"
                     android:padding="8dp"
                     android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint" />
+                    android:textColorHint="@color/text_color_hint"
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
             </LinearLayout>
 
             <!-- Grupo: Peso -->
@@ -130,7 +136,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/alatsi"
-                    android:text="Peso (kg):"
+                    android:importantForAutofill="no"
+                    android:text="@string/weigthLabel"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -141,12 +148,13 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/background_recyclerview"
                     android:fontFamily="@font/alatsi"
-                    android:hint="Introduce peso en kg"
+                    android:hint="@string/weigthNumberHint"
                     android:inputType="numberDecimal"
                     android:minHeight="48dp"
                     android:padding="8dp"
                     android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint" />
+                    android:textColorHint="@color/text_color_hint"
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
             </LinearLayout>
 
             <!-- Grupo: Duración -->
@@ -162,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/alatsi"
-                    android:text="Duración (minutos):"
+                    android:text="@string/timeLabel"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -173,12 +181,13 @@
                     android:layout_marginTop="8dp"
                     android:background="@color/background_recyclerview"
                     android:fontFamily="@font/alatsi"
-                    android:hint="Introduce duración en minutos"
+                    android:hint="@string/timeNumberHint"
                     android:inputType="number"
                     android:minHeight="48dp"
                     android:padding="8dp"
                     android:textColor="@color/text_color"
-                    android:textColorHint="@color/text_color_hint" />
+                    android:textColorHint="@color/text_color_hint"
+                    tools:ignore="Autofill,VisualLintTextFieldSize" />
             </LinearLayout>
 
             <!-- Botón Guardar -->
@@ -190,9 +199,10 @@
                 android:backgroundTint="@color/button"
                 android:fontFamily="@font/alatsi"
                 android:padding="12dp"
-                android:text="Guardar cambios"
+                android:text="@string/saveChangesLabel"
                 android:textColor="@color/text_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="VisualLintButtonSize" />
         </LinearLayout>
     </ScrollView>
 
@@ -203,7 +213,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="@color/background"
+        android:importantForAccessibility="no"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

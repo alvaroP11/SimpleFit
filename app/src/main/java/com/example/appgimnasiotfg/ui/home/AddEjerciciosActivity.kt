@@ -20,9 +20,10 @@ import com.google.firebase.ktx.Firebase
 
 class AddEjerciciosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEjerciciosBinding
-    private var diaSeleccionado: Int = 0
     private var rutinaId: String = ""
 
+    // La gestion interna de como se muestran los dias se hace mediante enteros del 0 al 6, y segun el entero obtenido por el Intent, muestro esa posicion de la lista diasSemana
+    private var diaSeleccionado: Int = 0
     private val diasSemana = listOf("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
     private lateinit var adapter: AddEjercicioAdapter
@@ -45,12 +46,10 @@ class AddEjerciciosActivity : AppCompatActivity() {
 
         binding.addRutinaTV.text = "Añadir ejercicios al ${diasSemana[diaSeleccionado]}"
 
-        // RecyclerView y adapter
         adapter = AddEjercicioAdapter(listaEjercicios)
         binding.recyclerViewEjercicios.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewEjercicios.adapter = adapter
 
-        // Spinner
         spinner = binding.addEjerciciosSP
         cargarMusculos()
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -64,10 +63,8 @@ class AddEjerciciosActivity : AppCompatActivity() {
             }
         }
 
-        // Cargar ejercicios
         cargarEjerciciosDesdeFirebase()
 
-        // Botón guardar ejercicios
         binding.addEjerciciosRutinaBT.setOnClickListener {
             val seleccionados = adapter.obtenerSeleccionados()
             if (seleccionados.isEmpty()) {
@@ -87,12 +84,10 @@ class AddEjerciciosActivity : AppCompatActivity() {
             subirEjerciciosAFirebase(nuevosEjercicios)
         }
 
-        // Botón volver
         binding.volverALaRutina3BT.setOnClickListener {
             finish()
         }
 
-        // Insets sistema
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -169,6 +164,7 @@ class AddEjerciciosActivity : AppCompatActivity() {
             }
     }
 
+    // Cierra el activity en caso de error con el ID de la rutina
     private fun finishWithError(mensaje: String): Nothing {
         Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
         finish()

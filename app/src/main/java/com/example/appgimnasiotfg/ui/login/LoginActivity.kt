@@ -1,5 +1,6 @@
 package com.example.appgimnasiotfg.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
@@ -88,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
         loginManager.startLogin()
     }
 
-    fun loginSuccess() {
+    private fun loginSuccess() {
         val intent = Intent(this, MainActivity::class.java)
         // Se borra el anterior Activity del historial, para evitar acceder al Activity anterior en un estado incorrecto
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -96,9 +97,11 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    // Boton "ojo" para alternar el poder ver o no la contraseña
+    @SuppressLint("ClickableViewAccessibility")
     private fun configurarTogglePassword(editText: EditText) {
         editText.setOnTouchListener { v, event ->
-            val drawableEnd = 2  // Posición del drawableEnd
+            val drawableEnd = 2
             if (event.action == MotionEvent.ACTION_UP) {
                 val drawable = editText.compoundDrawables[drawableEnd]
                 if (drawable != null && event.rawX >= (editText.right - drawable.bounds.width())) {
@@ -113,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
                         editText.typeface = ResourcesCompat.getFont(this,R.font.alatsi)
                     }
                     editText.setSelection(editText.text.length)  // Mantiene el cursor al final
-                    true
                 }
             }
             false

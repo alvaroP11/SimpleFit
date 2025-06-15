@@ -1,18 +1,63 @@
 <resources>
+    <!-- GENERALES -->
     <string name="app_name">SimpleFit</string>
     <string name="web_client_id">450694728247-05tqq7fqqcocsobqu2jf3uviuormd7od.apps.googleusercontent.com</string>
 
+    <!-- LOGIN Y REGISTRO -->
     <string name="title">Iniciar sesion</string>
     <string name="emailEdt">Email</string>
     <string name="passwordEdt">Contraseña</string>
+    <string name="confirmPasswordHint">Confirmar contraseña</string>
     <string name="registerBt">Registrarse</string>
     <string name="loginBt">Iniciar Sesion</string>
     <string name="googleLoginBt">Iniciar sesión con Google</string>
+    <string name="toRegisterLabel">¿No tienes cuenta aun? Registrate aquí</string>
+
     <!-- NAVIGATION -->
     <string name="title_home">Home</string>
     <string name="title_ejercicios">Ejercicios</string>
     <string name="title_perfil">Perfil</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- LAYOUTS -->
+
+    <!-- AÑADIR EJERCICIOS -->
+    <string name="addSelectedExercises">Añadir ejercicios seleccionados</string>
+
+    <!-- EDITAR EJERCICIOS -->
+    <string name="seriesLabel">Series:</string>
+    <string name="seriesNumberHint">Introduce número de series</string>
+    <string name="repsLabel">Repeticiones:</string>
+    <string name="repsNumberHint">Introduce número de repeticiones</string>
+    <string name="weigthLabel">Peso (kg):</string>
+    <string name="weigthNumberHint">Introduce peso en kg</string>
+    <string name="timeLabel">Duración (minutos):</string>
+    <string name="timeNumberHint">Introduce duración en minutos</string>
+    <string name="saveChangesLabel">Guardar cambios</string>
+
+    <!-- EDITAR PERFIL -->
+    <string name="userInfoLabel">Información del usuario</string>
+    <string name="nameLabel">Nombre:</string>
+    <string name="insertNameHint">Introduce tu nombre</string>
+    <string name="heigthLabel">Altura (cm):</string>
+    <string name="userHeigthHint">Introduce tu altura en cm</string>
+    <string name="userWeigthHint">Introduce tu peso en kg</string>
+
+    <!-- ACTIVITY EJERCICIO -->
+    <string name="exercitedMuscleLabel">Musculos ejercitados</string>
+    <string name="machinesToUseLabel">Máquinas a usar</string>
+
+    <!-- FRAGMENTS -->
+    <string name="Exercises">Ejercicios</string>
+    <string name="HomePage">Página principal</string>
+    <string name="userRoutineLabel">Rutinas del usuario:</string>
+    <string name="adminRoutineLabel">Rutinas prehechas</string>
+    <string name="routineNameLabel">Nombre de la rutina</string>
+    <string name="Profile">Perfil</string>
+    <string name="logOutLabel">Cerrar Sesión</string>
+
+    <!-- PERFIL DE USUARIO -->
+    <string name="currentUser">Usuario actual:</string>
+    <string name="userHeigthLabel">Altura:</string>
+    <string name="userWeigthLabel">Peso:</string>
+    <string name="imcLabel">IMC</string>
+
+
 </resources>

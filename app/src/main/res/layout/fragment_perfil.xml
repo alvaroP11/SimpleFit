@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alatsi"
-        android:text="Perfil"
+        android:text="@string/Profile"
         android:textColor="@color/text_color"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +27,7 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/button"
         android:fontFamily="@font/alatsi"
-        android:text="Cerrar Sesión"
+        android:text="@string/logOutLabel"
         android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/alatsi"
-        android:text="Usuario actual:"
+        android:text="@string/currentUser"
         android:textColor="@color/text_color"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
@@ -79,7 +79,8 @@
         android:textColor="@color/text_color"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/usuarioActualTV" />
+        app:layout_constraintTop_toBottomOf="@+id/usuarioActualTV"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/nombreUsuarioTV"
@@ -87,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Nombre:"
+        android:text="@string/nameLabel"
         android:textColor="@color/text_color"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
@@ -103,7 +104,8 @@
         android:textColor="@color/text_color"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioTV" />
+        app:layout_constraintTop_toBottomOf="@+id/nombreUsuarioTV"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/alturaUsuarioTV"
@@ -111,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Altura:"
+        android:text="@string/userHeigthLabel"
         android:textColor="@color/text_color"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
@@ -127,7 +129,8 @@
         android:textColor="@color/text_color"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/alturaUsuarioTV" />
+        app:layout_constraintTop_toBottomOf="@+id/alturaUsuarioTV"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/pesoUsuarioTV"
@@ -135,7 +138,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Peso:"
+        android:text="@string/userWeigthLabel"
         android:textColor="@color/text_color"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
@@ -147,11 +150,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/alatsi"
+        android:importantForAccessibility="no"
         android:text="---"
         android:textColor="@color/text_color"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/guideline18"
-        app:layout_constraintTop_toBottomOf="@+id/pesoUsuarioTV" />
+        app:layout_constraintTop_toBottomOf="@+id/pesoUsuarioTV"
+        tools:ignore="HardcodedText" />
 
     <ImageButton
         android:id="@+id/editarUsuarioBT"
@@ -161,7 +166,7 @@
         android:src="@android:drawable/ic_menu_edit"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
         app:layout_constraintTop_toTopOf="@+id/guideline6"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/imcUsuarioTV"
@@ -169,7 +174,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/alatsi"
-        android:text="IMC"
+        android:text="@string/imcLabel"
         android:textSize="22sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/pesoUsuarioTV"
         app:layout_constraintEnd_toStartOf="@+id/guideline20" />
@@ -185,7 +190,8 @@
         android:text="---"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline20"
-        app:layout_constraintTop_toBottomOf="@+id/imcUsuarioTV" />
+        app:layout_constraintTop_toBottomOf="@+id/imcUsuarioTV"
+        tools:ignore="HardcodedText" />
 
     <View
         android:id="@+id/indicadorIMC"

@@ -17,27 +17,23 @@ class AddEjercicioAdapter(
     // Lista filtrada (visible en RecyclerView)
     private var listaEjercicios = listaEjerciciosInicial.toMutableList()
 
+    // Id de los ejercicios seleccionados
     private val selectedIds = mutableSetOf<String>()
-
-    fun actualizarLista(nuevaLista: List<Ejercicio>) {
-        listaEjercicios = nuevaLista.toMutableList()
-        notifyDataSetChanged()
-    }
 
     // Filtra los ejercicios por músculo y actualiza la lista visible
     fun filtrarPorMusculo(musculoId: String) {
-        listaEjercicios = if (musculoId.isEmpty()) {
-            listaCompletaEjercicios.toMutableList()
+        if (musculoId.isEmpty()) {
+            listaEjercicios = listaCompletaEjercicios.toMutableList()
         } else {
-            listaCompletaEjercicios.filter { it.musculoIds.contains(musculoId) }.toMutableList()
+            // Itera cada musculo comprobando que contenga el ID del musculo pasado por parametro
+            listaEjercicios = listaCompletaEjercicios.filter {
+                it.musculoIds.contains(musculoId)
+            }.toMutableList()
         }
         notifyDataSetChanged()
     }
 
-    // Devuelve la lista completa de ejercicios (sin filtrar)
-    fun obtenerListaCompleta(): List<Ejercicio> = listaCompletaEjercicios.toList()
-
-    // Devuelve los ejercicios seleccionados (incluso si no están filtrados/visibles)
+    // Devuelve los ejercicios seleccionados, estén o no visibles
     fun obtenerSeleccionados(): List<Ejercicio> {
         return listaCompletaEjercicios.filter { selectedIds.contains(it.id) }
     }
@@ -47,7 +43,6 @@ class AddEjercicioAdapter(
             binding.nombreEjercicioEditTV.text = ejercicio.nombre
             Glide.with(binding.root).load(ejercicio.imagen).into(binding.imagenEjercicioSeleccionable)
 
-            // Evitar llamada repetida del listener al reciclar
             binding.itemCB.setOnCheckedChangeListener(null)
             binding.itemCB.isChecked = selectedIds.contains(ejercicio.id)
             binding.itemCB.setOnCheckedChangeListener { _, isChecked ->

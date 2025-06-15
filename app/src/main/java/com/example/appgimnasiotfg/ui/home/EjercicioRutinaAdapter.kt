@@ -56,24 +56,20 @@ class EjercicioRutinaAdapter(
                 infoEjercicioTV.text = ""
             }
 
-            // Ir a EjercicioActivity (detalle)
             root.setOnClickListener {
                 onItemClick(ejercicioRutina)
             }
 
-            // Ir a editar series/reps/peso
             btnEditar.setOnClickListener {
                 onEditarClick(ejercicioRutina)
             }
 
-            // Eliminar ejercicio de la rutina
             btnEliminar.setOnClickListener {
                 onEliminarClick(ejercicioRutina)
             }
 
-            checkRealizado.setOnCheckedChangeListener(null) // Evitar triggers reciclados
-
-            checkRealizado.isChecked = ejercicioRutina.realizadoTemporal ?: false
+            checkRealizado.setOnCheckedChangeListener(null)
+            checkRealizado.isChecked = ejercicioRutina.realizadoTemporal
 
             actualizarEstiloItem(checkRealizado.isChecked, this)
 
@@ -92,14 +88,12 @@ class EjercicioRutinaAdapter(
         notifyDataSetChanged()
     }
 
+    // Cambia la opacidad del ejercicio segun si está marcado el Check
     private fun actualizarEstiloItem(realizado: Boolean, binding: ItemEjercicioRutinaBinding) {
         if (realizado) {
-            binding.root.alpha = 0.4f // Atenuar
-            // También puedes hacer esto:
-            // binding.nombreEjercicioTV.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.root.alpha = 0.4f // Opacidad atenuada
         } else {
-            binding.root.alpha = 1.0f
-            // binding.nombreEjercicioTV.paintFlags = 0
+            binding.root.alpha = 1.0f // Opacidad completa
         }
     }
 

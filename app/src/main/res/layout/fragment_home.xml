@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/alatsi"
-        android:text="Página principal"
+        android:text="@string/HomePage"
         android:textColor="@color/text_color"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +34,15 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:focusable="true"
+        android:importantForAccessibility="no"
         android:onClick="crearRutina"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/button"
         app:circularflow_defaultRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <TextView
         android:id="@+id/textView4"
@@ -48,7 +51,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Rutinas del usuario:"
+        android:text="@string/userRoutineLabel"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline21" />
@@ -71,7 +74,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Rutinas prehechas"
+        android:text="@string/adminRoutineLabel"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.appgimnasiotfg.databinding.FragmentPerfilBinding
 import com.example.appgimnasiotfg.ui.login.LoginActivity
 import com.example.appgimnasiotfg.ui.model.Usuario
@@ -21,7 +20,6 @@ import java.util.*
 class PerfilFragment : Fragment() {
 
     private lateinit var binding: FragmentPerfilBinding
-    private val viewModel: PerfilViewModel by viewModels()
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private var usuarioActual: Usuario? = null
@@ -119,6 +117,7 @@ class PerfilFragment : Fragment() {
         binding.indicadorIMC.background.setTint(color)
     }
 
+    // Si la altura es 1 metro o superior, se formatea en metros, sino, en centimetros
     private fun formatearAltura(alturaCm: Int): String {
         return if (alturaCm >= 100) {
             val alturaMetros = alturaCm / 100f

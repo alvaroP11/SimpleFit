@@ -2,9 +2,7 @@ package com.example.appgimnasiotfg.ui.home
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +11,11 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appgimnasiotfg.databinding.FragmentHomeBinding
 import com.example.appgimnasiotfg.ui.model.Rutina
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener {
-
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
-    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private val auth = FirebaseAuth.getInstance()
 
@@ -34,12 +24,6 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
 
     private val listaRutinas = mutableListOf<Rutina>()
     private val listaRutinasPrehechas = mutableListOf<Rutina>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,6 +39,7 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
         binding.rutinasRV.layoutManager = LinearLayoutManager(requireContext())
         binding.rutinasPrehechasRV.layoutManager = LinearLayoutManager(requireContext())
 
+        // Las rutinas del usuario permiten ser borradas con una larga pulsacion, y en el intent pasan un boolean para activar o desactivar funciones
         rutinaAdapter = RutinaAdapter(
             listaRutinas,
             onItemClick = { rutina ->
@@ -66,9 +51,10 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
             onLongClick = { rutina ->
                 mostrarDialogoEliminarRutina(rutina)
             },
-            editable = true
+            editable = true // La rutina podrá ser editada
         )
 
+        // En caso de rutinas prehechas por el administrador, el usuario solo tendra permisos de lectura, no podra borrar la rutina ni editar atributos de la rutina o ejercicios
         rutinaPrehechaAdapter = RutinaAdapter(
             listaRutinasPrehechas,
             onItemClick = { rutina ->
@@ -79,7 +65,7 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
             },
             onLongClick = { rutina ->
             },
-            editable = false
+            editable = false // La rutina no podrá ser editada
         )
 
         binding.rutinasRV.adapter = rutinaAdapter
@@ -105,7 +91,7 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
         }
     }
 
-    // Mostrar el dialog
+    // Dialog para crear una rutina vacia
     private fun mostrarDialogCrearRutina() {
         val dialog = RutinaFragmentDialog()
         dialog.show(childFragmentManager, "NuevaRutinaDialog")
@@ -142,7 +128,7 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
         }
     }
 
-    //Actualiza dinamicamente la lista de rutinas si se añade una
+    //Actualiza dinamicamente la lista de rutinas si se crean o destruyen
     private fun escucharRutinasDelUsuario() {
         val uid = auth.currentUser?.uid ?: return
         val db = Firebase.firestore
@@ -205,7 +191,6 @@ class HomeFragment : Fragment(), RutinaFragmentDialog.OnNombreConfirmadoListener
                     .addOnSuccessListener {
                         Toast.makeText(requireContext(), "Rutina eliminada", Toast.LENGTH_SHORT)
                             .show()
-                        // No necesitas llamar a cargarRutinas(), el listener actualizará automáticamente
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(

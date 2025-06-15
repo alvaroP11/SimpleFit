@@ -2,7 +2,6 @@ package com.example.appgimnasiotfg.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -43,8 +42,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
         setContentView(binding.root)
         enableEdgeToEdge()
 
-        Log.d("RutinaActivity", "onCreate INICIADO")
-        // Recibir rutina del intent
         rutina = intent.getSerializableExtra("rutina") as? Rutina
             ?: throw IllegalStateException("No se recibió la rutina")
         isEditable = intent.getBooleanExtra("editable", true)
@@ -70,6 +67,8 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             },
             isEditable = isEditable
         )
+
+        // Si se ha obtenido boolean negativo, es una rutina prehecha, no debe permitir edición ni borrado de ejercicios
         if (!isEditable) {
             binding.editarNombreBT.visibility = View.GONE
             binding.addEjerciciosBT.visibility = View.GONE
@@ -87,7 +86,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
         binding.ejerciciosRutinaRV.layoutManager = LinearLayoutManager(this)
         binding.ejerciciosRutinaRV.adapter = adapter
 
-        // Launchers para Add y Edit
         addEjerciciosLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) cargarEjerciciosDelDia(diaSeleccionado)
         }
@@ -110,7 +108,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-        // Botón añadir ejercicio
         binding.addEjerciciosBT.setOnClickListener {
             val intent = Intent(this, AddEjerciciosActivity::class.java).apply {
                 putExtra("diaSeleccionado", diaSeleccionado)
@@ -119,7 +116,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             addEjerciciosLauncher.launch(intent)
         }
 
-        // Nombre de la rutina
         binding.nombreRutinaTV.text = rutina.nombreRutina
 
         binding.volverAlHomeBT.setOnClickListener{
@@ -137,7 +133,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
         val db = Firebase.firestore
         val coleccionACargar = if (isEditable) "rutinas" else "rutinas_prehechas"
 
-        Log.d("RutinaActivity", rutina.id)
         val referenciaDia = db.collection(coleccionACargar)
             .document(rutina.id)
             .collection("diasRutina")
@@ -147,12 +142,10 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
             .addOnSuccessListener { doc ->
                 if (!doc.exists()) {
                     adapter.updateData(emptyList())
-                    Log.d("RutinaActivity", "Doc no existe")
                     return@addOnSuccessListener
                 }
 
                 val ejerciciosRutinaList = doc.get("ejercicios") as? List<Map<String, Any>> ?: emptyList()
-                Log.d("RutinaActivity", "ejercicios raw: ${doc.get("ejercicios")}")
                 val listaFinal = mutableListOf<EjercicioRutina>()
                 val tareas = mutableListOf<Task<DocumentSnapshot>>()
 
@@ -182,7 +175,6 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
                                 listaFinal.add(ejercicioRutina)
                             }
                         }
-
                     tareas.add(tarea)
                 }
 
@@ -245,5 +237,4 @@ class RutinaActivity : AppCompatActivity(), RutinaFragmentDialog.OnNombreConfirm
                 Toast.makeText(this, "Error al actualizar: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 }

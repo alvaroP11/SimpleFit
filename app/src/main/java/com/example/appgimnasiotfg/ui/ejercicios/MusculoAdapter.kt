@@ -11,8 +11,7 @@ import com.example.appgimnasiotfg.R
 import com.example.appgimnasiotfg.ui.model.Musculo
 
 class MusculoAdapter (
-    private val musculos: MutableList<Musculo>,
-    private val onItemClick: (Musculo) -> Unit
+    private val musculos: MutableList<Musculo>
 ) : RecyclerView.Adapter<MusculoAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

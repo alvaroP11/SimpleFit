@@ -12,17 +12,18 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
+// Clase abstraida para la gestión del login con Google
 class GoogleLoginManager (
-    private val activity: Activity,
+    activity: Activity,
     activityResultCaller: ActivityResultCaller,
     private val auth: FirebaseAuth,
-    private val webClientId: String,
+    webClientId: String,
     private val onSuccess: (email: String?) -> Unit,
     private val onError: (message: String) -> Unit
 ) {
     private val oneTapClient: SignInClient = Identity.getSignInClient(activity)
     private val signInRequest: BeginSignInRequest
-    private lateinit var launcher: ActivityResultLauncher<IntentSenderRequest>
+    private var launcher: ActivityResultLauncher<IntentSenderRequest>
 
     init {
         signInRequest = BeginSignInRequest.builder()

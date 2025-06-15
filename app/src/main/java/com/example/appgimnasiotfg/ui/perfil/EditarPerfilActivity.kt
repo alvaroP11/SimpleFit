@@ -9,9 +9,6 @@ import com.example.appgimnasiotfg.databinding.ActivityEditarPerfilBinding
 import com.example.appgimnasiotfg.ui.model.Usuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.NumberFormat
-import java.text.ParseException
-import java.util.Locale
 
 class EditarPerfilActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
@@ -26,6 +23,7 @@ class EditarPerfilActivity : AppCompatActivity() {
 
         val usuario = intent.getSerializableExtra("usuario") as? Usuario
         usuario?.let {
+            // Si ya habia valores, se establecen por defecto en los EditText
             binding.nombreUsuarioEdt.setText(it.nombre)
             if (usuario.altura > 0){
                 binding.alturaUsuarioEdt.setText(it.altura.toString())

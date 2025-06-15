@@ -16,7 +16,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/alatsi"
-        android:text="Información del usuario"
+        android:text="@string/userInfoLabel"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/alatsi"
-            android:text="Nombre:"
+            android:text="@string/nameLabel"
             android:textColor="@color/text_color"
             android:textSize="18sp" />
 
@@ -52,13 +52,15 @@
             android:layout_marginTop="8dp"
             android:background="@color/background_recyclerview"
             android:fontFamily="@font/alatsi"
-            android:hint="Introduce tu nombre"
+            android:hint="@string/insertNameHint"
+            android:importantForAutofill="no"
             android:inputType="text"
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hint"
-            android:maxLength="20" />
+            android:maxLength="20"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/alturaUsuarioEditTV"
@@ -66,7 +68,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/alatsi"
-            android:text="Altura (cm):"
+            android:importantForAutofill="no"
+            android:text="@string/heigthLabel"
             android:textColor="@color/text_color"
             android:textSize="18sp" />
 
@@ -77,13 +80,14 @@
             android:layout_marginTop="8dp"
             android:background="@color/background_recyclerview"
             android:fontFamily="@font/alatsi"
-            android:hint="Introduce tu altura en cm"
+            android:hint="@string/userHeigthHint"
             android:inputType="number"
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hint"
-            android:maxLength="3"/>
+            android:maxLength="3"
+            tools:ignore="Autofill,VisualLintTextFieldSize" />
 
         <TextView
             android:id="@+id/pesoUsuarioEditTV"
@@ -91,7 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/alatsi"
-            android:text="Peso (kg):"
+            android:importantForAutofill="no"
+            android:text="@string/weigthLabel"
             android:textColor="@color/text_color"
             android:textSize="18sp" />
 
@@ -103,13 +108,14 @@
             android:background="@color/background_recyclerview"
             android:digits="0123456789.,"
             android:fontFamily="@font/alatsi"
-            android:hint="Introduce tu peso en kg"
+            android:hint="@string/userWeigthHint"
             android:inputType="numberDecimal"
             android:minHeight="48dp"
             android:padding="8dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/text_color_hint"
-            android:maxLength="4" />
+            android:maxLength="4"
+            tools:ignore="Autofill,VisualLintTextFieldSize" />
 
     </LinearLayout>
 
@@ -122,12 +128,14 @@
         android:layout_marginBottom="16dp"
         android:background="@color/button"
         android:fontFamily="@font/alatsi"
-        android:text="Guardar Cambios"
+        android:importantForAccessibility="no"
+        android:text="@string/saveChangesLabel"
         android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VisualLintButtonSize" />
 
     <ImageButton
         android:id="@+id/volverAlPerfilBT"
@@ -138,5 +146,6 @@
         android:background="@color/background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

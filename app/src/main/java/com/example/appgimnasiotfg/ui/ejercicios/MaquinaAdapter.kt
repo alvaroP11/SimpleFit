@@ -11,8 +11,7 @@ import com.example.appgimnasiotfg.R
 import com.example.appgimnasiotfg.ui.model.Maquina
 
 class MaquinaAdapter (
-    private val maquinas: MutableList<Maquina>,
-    private val onItemClick: (Maquina) -> Unit
+    private val maquinas: MutableList<Maquina>
 ) : RecyclerView.Adapter<MaquinaAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

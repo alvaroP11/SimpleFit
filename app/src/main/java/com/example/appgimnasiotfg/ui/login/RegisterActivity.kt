@@ -1,11 +1,10 @@
 package com.example.appgimnasiotfg.ui.login
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.MotionEvent
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,7 +13,6 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.appgimnasiotfg.R
-import com.example.appgimnasiotfg.databinding.ActivityLoginBinding
 import com.example.appgimnasiotfg.databinding.ActivityRegisterBinding
 import com.example.appgimnasiotfg.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private val auth = FirebaseAuth.getInstance()
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    fun signUp() {
+    private fun signUp() {
         val email = binding.emailRegisterEdt.text.toString().trim()
         val password = binding.passwordRegisterEdt.text.toString().trim()
         val confirmPassword = binding.passwordConfirmEdt.text.toString().trim()
@@ -85,12 +82,13 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
-    fun registerSuccess(){
+    private fun registerSuccess(){
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun configurarTogglePassword(editText: EditText) {
         editText.setOnTouchListener { v, event ->
             val drawableEnd = 2  // Posición del drawableEnd
@@ -108,7 +106,6 @@ class RegisterActivity : AppCompatActivity() {
                         editText.typeface = ResourcesCompat.getFont(this,R.font.alatsi)
                     }
                     editText.setSelection(editText.text.length)  // Mantiene el cursor al final
-                    true
                 }
             }
             false

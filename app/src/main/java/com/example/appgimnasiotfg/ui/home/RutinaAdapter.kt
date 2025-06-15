@@ -2,12 +2,9 @@ package com.example.appgimnasiotfg.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appgimnasiotfg.databinding.ItemRutinaBinding
 import com.example.appgimnasiotfg.ui.model.Rutina
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class RutinaAdapter(
     private var lista: MutableList<Rutina>,
@@ -41,10 +38,4 @@ class RutinaAdapter(
     }
 
     override fun getItemCount(): Int = lista.size
-
-    fun updateData(nuevasRutinas: List<Rutina>) {
-        lista.clear()
-        lista.addAll(nuevasRutinas)
-        notifyDataSetChanged()
-    }
 }

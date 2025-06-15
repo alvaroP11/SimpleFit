@@ -33,11 +33,10 @@ class EditarEjercicioRutinaActivity : AppCompatActivity() {
         val ejercicio = ejercicioRutina.ejercicio
         val tipo = ejercicio?.tipo ?: TipoEjercicio.PESO_VARIABLE
 
-        // Mostrar datos básicos
         binding.nombreEjercicioEditTV.text = ejercicio?.nombre ?: "Ejercicio"
         binding.descripcionEjercicioTV.text = ejercicio?.descripcion ?: "Descripción"
 
-        // Mostrar/ocultar campos según el tipo de ejercicio
+        // Muestro u oculto campos según el enum del ejercicio
         when (tipo) {
             TipoEjercicio.PESO_VARIABLE -> {
                 binding.grupoSeries.visibility = View.VISIBLE
@@ -67,7 +66,6 @@ class EditarEjercicioRutinaActivity : AppCompatActivity() {
                 binding.repeticionesET.setText(ejercicioRutina.repeticiones.toString())
             }
         }
-
 
         binding.guardarBT.setOnClickListener {
             when (tipo) {
@@ -109,7 +107,7 @@ class EditarEjercicioRutinaActivity : AppCompatActivity() {
             val ejercicios = (doc.get("ejercicios") as? List<Map<String, Any>> ?: emptyList()).map {
                 val id = it["ejercicioId"] as? String ?: return@map null
                 if (id == ejercicioRutina.ejercicioId) {
-                    val nuevo = mutableMapOf<String, Any>(
+                    val nuevo = mutableMapOf(
                         "ejercicioId" to id,
                         "series" to (if (series > 0) series else it["series"] ?: 0),
                         "repeticiones" to (if (reps > 0) reps else it["repeticiones"] ?: 0),

@@ -16,13 +16,11 @@ class RutinaFragmentDialog : DialogFragment() {
 
     private var listener: OnNombreConfirmadoListener? = null
 
-    // Parámetros para configurar el diálogo (creación o edición)
     private var tituloDialogo: String = "Crear nueva rutina"
     private var textoBotonPositivo: String = "Crear"
     private var nombreInicial: String? = null
     private val maxLength = 30
 
-    // Para pasar argumentos
     companion object {
         fun newInstance(
             titulo: String,
@@ -63,15 +61,14 @@ class RutinaFragmentDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.fragment_nueva_rutina, null)
         val nombreRutinaEDT = view.findViewById<EditText>(R.id.nombreRutinaEDT)
 
-        // Si tenemos nombre inicial, lo ponemos en el EditText
         nombreInicial?.let {
             nombreRutinaEDT.setText(it)
-            nombreRutinaEDT.setSelection(it.length) // colocar cursor al final
+            nombreRutinaEDT.setSelection(it.length)
         }
 
         builder.setView(view)
             .setTitle(tituloDialogo)
-            .setPositiveButton(textoBotonPositivo, null) // anulamos para control manual
+            .setPositiveButton(textoBotonPositivo, null)
             .setNegativeButton("Cancelar") { dialog, _ -> dialog.dismiss() }
 
         val dialog = builder.create()

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:importantForAutofill="no"
     android:orientation="vertical"
     android:padding="24dp">
 
@@ -10,6 +12,11 @@
         android:id="@+id/nombreRutinaEDT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nombre de la rutina"
-        android:inputType="textPersonName" />
+        android:hint="@string/routineNameLabel"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color_hint"
+        tools:ignore="VisualLintTextFieldSize" />
 </LinearLayout>

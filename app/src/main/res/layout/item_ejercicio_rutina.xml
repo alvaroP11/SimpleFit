@@ -26,7 +26,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnEditar"
             app:layout_constraintStart_toEndOf="@+id/checkRealizado"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/descripcionEjercicioTV"
@@ -42,7 +43,8 @@
             app:layout_constraintBottom_toTopOf="@+id/infoEjercicioTV"
             app:layout_constraintEnd_toStartOf="@+id/btnEditar"
             app:layout_constraintStart_toEndOf="@+id/checkRealizado"
-            app:layout_constraintTop_toBottomOf="@id/nombreEjercicioEditTV" />
+            app:layout_constraintTop_toBottomOf="@id/nombreEjercicioEditTV"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/infoEjercicioTV"
@@ -55,7 +57,8 @@
             android:text="Información del ejercicio"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnEditar"
-            app:layout_constraintStart_toEndOf="@+id/checkRealizado" />
+            app:layout_constraintStart_toEndOf="@+id/checkRealizado"
+            tools:ignore="HardcodedText" />
 
         <!-- Añadir esto dentro del ConstraintLayout existente -->
 
@@ -67,11 +70,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Editar ejercicio"
+            android:importantForAccessibility="no"
             android:src="@android:drawable/ic_menu_edit"
             app:layout_constraintBottom_toTopOf="@+id/btnEliminar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
         <ImageButton
             android:id="@+id/btnEliminar"
@@ -81,11 +85,12 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Eliminar ejercicio"
+            android:importantForAccessibility="no"
             android:src="@android:drawable/ic_menu_delete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnEditar" />
+            app:layout_constraintTop_toBottomOf="@+id/btnEditar"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
         <CheckBox
             android:id="@+id/checkRealizado"

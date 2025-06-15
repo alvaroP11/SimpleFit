@@ -15,13 +15,15 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:adjustViewBounds="true"
+        android:importantForAccessibility="no"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo"
+        tools:ignore="VisualLintBounds,ImageContrastCheck" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -80,7 +82,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="Autofill" />
+                tools:ignore="Autofill,VisualLintTextFieldSize" />
 
             <EditText
                 android:id="@+id/passwordEdt"
@@ -99,7 +101,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/emailEdt"
-                tools:ignore="Autofill" />
+                tools:ignore="Autofill,VisualLintTextFieldSize" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/loginBt"
@@ -114,7 +116,8 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/passwordEdt" />
+                app:layout_constraintTop_toBottomOf="@+id/passwordEdt"
+                tools:ignore="VisualLintButtonSize" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/googleLoginBt"
@@ -130,7 +133,8 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
-                app:layout_constraintTop_toBottomOf="@+id/loginBt" />
+                app:layout_constraintTop_toBottomOf="@+id/loginBt"
+                tools:ignore="VisualLintButtonSize" />
 
             <TextView
                 android:id="@+id/alRegistroTV"
@@ -138,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/alatsi"
-                android:text="¿No tienes cuenta aun? Registrate aquí"
+                android:text="@string/toRegisterLabel"
                 android:textColor="@color/text_link_color"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"

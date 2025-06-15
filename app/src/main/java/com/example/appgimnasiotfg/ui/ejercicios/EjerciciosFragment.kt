@@ -1,7 +1,6 @@
 package com.example.appgimnasiotfg.ui.ejercicios
 
 import android.content.Intent
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,19 +17,12 @@ import com.example.appgimnasiotfg.R
 import com.example.appgimnasiotfg.databinding.FragmentEjerciciosBinding
 import com.example.appgimnasiotfg.ui.model.Ejercicio
 import com.example.appgimnasiotfg.ui.model.Musculo
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EjerciciosFragment : Fragment() {
-    companion object {
-        fun newInstance() = EjerciciosFragment()
-    }
-
-    private val viewModel: EjerciciosViewModel by viewModels()
     private lateinit var binding: FragmentEjerciciosBinding
 
-    private val auth = FirebaseAuth.getInstance()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: EjercicioAdapter
     private val listaEjercicios = mutableListOf<Ejercicio>()
@@ -40,11 +32,6 @@ class EjerciciosFragment : Fragment() {
     private lateinit var spinnerAdapter: ArrayAdapter<String>
     private var musculoIds = mutableListOf<String>()
     private lateinit var spinner: Spinner
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -123,8 +110,9 @@ class EjerciciosFragment : Fragment() {
         adapter.setEjercicios(listaEjerciciosFiltrados)
     }
 
-    fun cargarMusculos() {
+    private fun cargarMusculos() {
         val db = Firebase.firestore
+        // Aseguro el spinner en false
         spinner.isEnabled = false
         db.collection("musculos")
             .get()
@@ -147,6 +135,7 @@ class EjerciciosFragment : Fragment() {
                 spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nombres)
                 spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
+                // Asigno el adapter al Spinner y lo habilito
                 spinner.adapter = spinnerAdapter
                 spinner.isEnabled = true
             }

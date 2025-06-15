@@ -39,13 +39,9 @@ class EjercicioActivity : AppCompatActivity() {
             insets
         }
 
-        // OnClick de los items
-        musculoAdapter = MusculoAdapter(listaMusculos) { musculo ->
-            Toast.makeText(this, "Musculo: ${musculo.nombre}", Toast.LENGTH_SHORT).show()
-        }
-        maquinaAdapter = MaquinaAdapter(listaMaquinas) { maquina ->
-            Toast.makeText(this, "Máquina: ${maquina.nombre}", Toast.LENGTH_SHORT).show()
-        }
+        // Adapters de musculos y maquinas
+        musculoAdapter = MusculoAdapter(listaMusculos)
+        maquinaAdapter = MaquinaAdapter(listaMaquinas)
 
         // Asigno los adapters a los RecyclerViews y ajusto que el Layout de estos sea horizontal
         binding.musculosRV.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
