@@ -18,18 +18,15 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance()
 
-    // Guardamos referencias de fragmentos
-    private var firstFragment: Fragment? = null
-    private var secondFragment: Fragment? = null
-    private var thirdFragment: Fragment? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        // Si no hay usuario activo válido, Intent al LoginActivity
         if (auth.currentUser == null) {
             noUser()
+            return
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -40,52 +37,28 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.navigationView)
 
-        // Restaurar fragmentos si ya existen, para no recrearlos
-        firstFragment = supportFragmentManager.findFragmentByTag("homeFragment") ?: HomeFragment()
-        secondFragment = supportFragmentManager.findFragmentByTag("ejerciciosFragment") ?: EjerciciosFragment()
-        thirdFragment = supportFragmentManager.findFragmentByTag("perfilFragment") ?: PerfilFragment()
-
-        // Si es la primera vez que crea actividad, muestra el fragmento inicial
+        // Mostrar el fragmento inicial solo al iniciar por primera vez
         if (savedInstanceState == null) {
-            setCurrentFragment(firstFragment!!)
+            setCurrentFragment(HomeFragment())
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.homeNav -> setCurrentFragment(firstFragment!!)
-                R.id.ejerciciosNav -> setCurrentFragment(secondFragment!!)
-                R.id.perfilNav -> setCurrentFragment(thirdFragment!!)
+                R.id.homeNav -> setCurrentFragment(HomeFragment())
+                R.id.ejerciciosNav -> setCurrentFragment(EjerciciosFragment())
+                R.id.perfilNav -> setCurrentFragment(PerfilFragment())
             }
             true
         }
     }
 
     private fun setCurrentFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-
-        // Ocultar todos los fragmentos primero
-        listOf(firstFragment, secondFragment, thirdFragment).forEach {
-            if (it != null && it.isAdded) transaction.hide(it)
-        }
-
-        // Si el fragmento ya está agregado, mostrarlo
-        if (fragment.isAdded) {
-            transaction.show(fragment)
-        } else {
-            transaction.add(R.id.fragmentContainerView, fragment, fragmentTag(fragment))
-        }
-
-        transaction.commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment, fragment::class.java.simpleName)
+            .commit()
     }
 
-    private fun fragmentTag(fragment: Fragment): String = when (fragment) {
-        is HomeFragment -> "homeFragment"
-        is EjerciciosFragment -> "ejerciciosFragment"
-        is PerfilFragment -> "perfilFragment"
-        else -> "unknownFragment"
-    }
-
-    fun noUser() {
+    private fun noUser() {
         val intent = Intent(this, LoginActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)

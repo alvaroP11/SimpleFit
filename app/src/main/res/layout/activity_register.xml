@@ -8,27 +8,27 @@
     android:background="@color/background"
     tools:context=".ui.login.RegisterActivity">
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
-        android:fontFamily="@font/alatsi"
-        android:text="Registrarse"
-        android:textAllCaps="false"
-        android:textColor="@color/text_color"
-        android:textSize="34sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65"
+        app:srcCompat="@drawable/logo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -93,14 +93,14 @@
                 android:fontFamily="@font/alatsi"
                 android:hint="@string/passwordEdt"
                 android:inputType="textPassword"
+                android:maxLength="20"
                 android:minHeight="48dp"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_color_hint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/emailRegisterEdt"
-                tools:ignore="Autofill"
-                android:maxLength="20" />
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/passwordConfirmEdt"
@@ -113,14 +113,14 @@
                 android:fontFamily="@font/alatsi"
                 android:hint="Confirmar contraseña"
                 android:inputType="textPassword"
+                android:maxLength="20"
                 android:minHeight="48dp"
                 android:textColor="@color/text_color"
                 android:textColorHint="@color/text_color_hint"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/passwordRegisterEdt"
-                tools:ignore="Autofill"
-                android:maxLength="20" />
+                tools:ignore="Autofill" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/registerBt"
@@ -149,4 +149,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="?attr/actionModeCloseDrawable" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,15 +18,6 @@ class MusculoAdapter (
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreMusculoTV: TextView = itemView.findViewById(R.id.nombreMusculoTV)
         val imagenMusculo: ImageView = itemView.findViewById(R.id.imagenMusculo)
-
-        init {
-            itemView.setOnClickListener {
-                val posicion = adapterPosition
-                if (posicion != RecyclerView.NO_POSITION) {
-                    onItemClick(musculos[posicion])
-                }
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,10 +34,4 @@ class MusculoAdapter (
     }
 
     override fun getItemCount() = musculos.size
-
-    fun setEjercicios(nuevosMusculos: List<Musculo>) {
-        musculos.clear()
-        musculos.addAll(nuevosMusculos)
-        notifyDataSetChanged()
-    }
 }

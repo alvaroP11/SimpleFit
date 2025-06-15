@@ -27,8 +27,12 @@ class EditarPerfilActivity : AppCompatActivity() {
         val usuario = intent.getSerializableExtra("usuario") as? Usuario
         usuario?.let {
             binding.nombreUsuarioEdt.setText(it.nombre)
-            binding.alturaUsuarioEdt.setText(it.altura.toString())
-            binding.pesoUsuarioEdt.setText(it.peso.toString())
+            if (usuario.altura > 0){
+                binding.alturaUsuarioEdt.setText(it.altura.toString())
+            }
+            if (usuario.peso > 0.0){
+                binding.pesoUsuarioEdt.setText(it.peso.toString())
+            }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->

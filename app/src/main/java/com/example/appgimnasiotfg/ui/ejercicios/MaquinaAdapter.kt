@@ -18,15 +18,6 @@ class MaquinaAdapter (
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nombreMaquinaTV: TextView = itemView.findViewById(R.id.nombreMaquinaTV)
         val imagenMaquina: ImageView = itemView.findViewById(R.id.imagenMaquina)
-
-        init {
-            itemView.setOnClickListener {
-                val posicion = adapterPosition
-                if (posicion != RecyclerView.NO_POSITION) {
-                    onItemClick(maquinas[posicion])
-                }
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,10 +34,4 @@ class MaquinaAdapter (
     }
 
     override fun getItemCount() = maquinas.size
-
-    fun setEjercicios(nuevasMaquinas: List<Maquina>) {
-        maquinas.clear()
-        maquinas.addAll(nuevasMaquinas)
-        notifyDataSetChanged()
-    }
 }
